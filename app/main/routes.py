@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from app.models import Document
 import jinja2
 from app import db
@@ -9,6 +9,7 @@ main = Blueprint('main', __name__, template_folder='templates')
 
 
 @main.route('/search', methods=('GET', 'POST'))
+@main.route('/', methods=('GET', 'POST'))
 def index():
     q = request.form.get('q') or request.args.get('q')
     docs = []
@@ -27,6 +28,7 @@ def delete(doc_id):
         es.delete_by_query(index='text', body={'query': {'match': {'id': doc_id}}})
         db.session.delete(doc)
         db.session.commit()
+        flash('Документ успешно удален')
     except jinja2.exceptions.UndefinedError:
         pass
     finally:
