@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="" method="POST">
+    <label for="q">Поиск</label><input type="text" name="q" value="{{ q }}">
+    <input type="submit" value="search">
+</form>
+{% if docs %}
+<p>Результаты поиска "{{ q }}":</p>
+
+{% for doc in docs %}
+<p>Документ {{ loop.index }}:<br>
+    Текст: {{ doc.text }}<br>
+    Рубрики: {{doc.rubrics }}<br>
+    Дата: {{ doc.created_date }}<br>
+<form action="{{ url_for('main.delete', doc_id=doc.id) }}" method="POST">
+    <input type="submit" value="Удалить">
+</form>
+<p></p>
+{% endfor %}
+
+{% else %}
+{% endif %}
+{% endblock %}
