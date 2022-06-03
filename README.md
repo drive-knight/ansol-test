@@ -24,6 +24,12 @@ flask db migrate
 
 flask db upgrade
 ```  
+Таблица имеет данный вид:  
+| id | rubrics | text | created_date |
+|:---------|:----------------|:----------------|:----------------|
+| [PK] integer | character varying&#91;&#93;(255)  | character varying | character varying(255) |
+| целое число | массив&#91;текст&#93; | текст |  текст |   
+
 ### Настройка Elasticsearch  
 1. На сайте https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html выбрать подходящий способ установки и следовать инструкциям.
 2. В файле `settings.py` нужно изменить переменную DIRECTORY на свой абсолютный путь к папке установленного Elasticsearh
@@ -40,11 +46,6 @@ conn = psycopg2.connect(database=<db name>,
                         host=<host>, port=<port>
                         )
 ```  
-Таблица имеет данный вид:  
-| id | rubrics | text | created_date |
-|:---------|:----------------|:----------------|:----------------|
-| [PK] integer | character varying&#91;&#93;(255)  | character varying | character varying(255) |
-| целое число | массив&#91;текст&#93; | текст |  текст | 
 
 ### Запуск flask приложения  
 1. Создание индекса и добавление документов происходит также в скрипте `run.py`. На момент исполнения скрипта все инструкции, приведенные выше, должны быть выполнены.
